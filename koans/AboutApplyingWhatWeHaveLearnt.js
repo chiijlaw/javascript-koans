@@ -85,29 +85,24 @@ describe("About Applying What We Have Learnt", function() {
   });
 
   it("should count the ingredient occurrence (functional)", function () {
-    products = [
-       { name: "Sonoma", ingredients: ["artichoke", "sundried tomatoes", "mushrooms"], containsNuts: false },
-       { name: "Pizza Primavera", ingredients: ["roma", "sundried tomatoes", "goats cheese", "rosemary"], containsNuts: false },
-       { name: "South Of The Border", ingredients: ["black beans", "jalapenos", "mushrooms"], containsNuts: false },
-       { name: "Blue Moon", ingredients: ["blue cheese", "garlic", "walnuts"], containsNuts: true },
-       { name: "Taste Of Athens", ingredients: ["spinach", "kalamata olives", "sesame seeds"], containsNuts: true }
-    ];
-  });
     var ingredientCount = { "{ingredient name}": 0 };
-    _.chain(product)
-    .map(function (x) {
-      return x.ingredients;
+
+    _.chain(products)
+    .map(function (product) {
+      return product.ingredients;
     })
     .flatten()
-    .reduce(function (y) {
-      return ingredientCount[y] = (ingredientCount[i] || 0) + 1;
-    })
-    .value();
+    .forEach(function (ingredient) {
+      console.log(typeof ingredientCount[ingredient]);
+      if (typeof ingredientCount[ingredient] !== 'number') {
+        ingredientCount[ingredient] = 0;
+      }
+      ingredientCount[ingredient]++;
+    });
     /* chain() together map(), flatten() and reduce() */
-
+    console.log(ingredientCount);
     expect(ingredientCount['mushrooms']).toBe(2);
   });
-
   /*********************************************************************************/
   /* UNCOMMENT FOR EXTRA CREDIT */
   /*
